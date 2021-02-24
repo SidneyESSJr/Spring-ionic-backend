@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.backendspring.backend.domain.Categoria;
-import br.com.backendspring.backend.domain.Produto;
-import br.com.backendspring.backend.repository.CategoriaRepository;
-import br.com.backendspring.backend.repository.ProdutoRepository;
+import br.com.backendspring.backend.domains.Categoria;
+import br.com.backendspring.backend.domains.Produto;
+import br.com.backendspring.backend.repositories.CategoriaRepository;
+import br.com.backendspring.backend.repositories.ProdutoRepository;
 
 @Configuration
 public class Instanciando implements CommandLineRunner {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.backendspring.backend.domain.Categoria;
-import br.com.backendspring.backend.service.CategoriaService;
+import br.com.backendspring.backend.domains.Categoria;
+import br.com.backendspring.backend.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
