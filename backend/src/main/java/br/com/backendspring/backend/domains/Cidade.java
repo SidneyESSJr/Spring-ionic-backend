@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_cidade")
-public class Cidade implements Serializable{
+public class Cidade implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,8 +28,7 @@ public class Cidade implements Serializable{
 
     }
 
-    public Cidade(Integer id, String nome, Estado estado) {
-        this.id = id;
+    public Cidade(String nome, Estado estado) {
         this.nome = nome;
         this.estado = estado;
     }
