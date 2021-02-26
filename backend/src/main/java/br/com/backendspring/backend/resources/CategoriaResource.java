@@ -1,7 +1,5 @@
 package br.com.backendspring.backend.resources;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +12,10 @@ import br.com.backendspring.backend.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
-public class CategoriaResources {
+public class CategoriaResource {
 
     @Autowired
     private CategoriaService service;
-
-    @GetMapping
-    public ResponseEntity<List<Categoria>> findAll() {
-        List<Categoria> categorias = service.findAll();
-        return ResponseEntity.ok().body(categorias);
-    }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
