@@ -1,5 +1,7 @@
 package br.com.backendspring.backend.domains;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,15 +14,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_endereco")
-public class Endereco {
+public class Endereco implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String logradouro;
+
     private String numero;
+
     private String complemento;
+
     private String bairro;
+
     private String cep;
 
     @ManyToOne
@@ -33,6 +41,7 @@ public class Endereco {
     private Cidade cidade;
 
     public Endereco() {
+        
     }
 
     public Endereco(String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente,

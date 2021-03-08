@@ -1,5 +1,6 @@
 package br.com.backendspring.backend.domains;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,24 +19,33 @@ import br.com.backendspring.backend.domains.enums.TipoCliente;
 
 @Entity
 @Table(name = "tb_cliente")
-public class Cliente {
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
+
     private String email;
+
     private String cpfOuCnpj;
+
     private Integer tipo;
 
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
     @ElementCollection
-    @CollectionTable(name = "TELEFONE")
+    @CollectionTable(name = "tb_telefone")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente() {
+
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -91,6 +101,14 @@ public class Cliente {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public Set<String> getTelefones() {

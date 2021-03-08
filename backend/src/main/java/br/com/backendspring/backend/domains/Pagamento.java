@@ -3,35 +3,39 @@ package br.com.backendspring.backend.domains;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.backendspring.backend.domains.enums.EstadoPagamento;
+
 @Entity
-@Table(name = "tb_cidade")
-public class Cidade implements Serializable {
+@Table(name = "tb_pagamento")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estado;
+    private Integer estadoPagamento;
 
-    public Cidade() {
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+    public Pagamento() {
 
     }
 
-    public Cidade(String nome, Estado estado) {
-        this.nome = nome;
-        this.estado = estado;
+    public Pagamento(EstadoPagamento estadoPagamento, Pedido pedido) {
+        this.estadoPagamento = estadoPagamento.getCod();
+        this.pedido = pedido;
     }
 
     public Integer getId() {
@@ -42,20 +46,20 @@ public class Cidade implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public EstadoPagamento getEstadoPagamento() {
+        return EstadoPagamento.toEnum(this.estadoPagamento);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
+        this.estadoPagamento = estadoPagamento.getCod();
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     @Override
@@ -74,7 +78,7 @@ public class Cidade implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Cidade other = (Cidade) obj;
+        Pagamento other = (Pagamento) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
