@@ -12,6 +12,7 @@ import br.com.backendspring.backend.domains.Cidade;
 import br.com.backendspring.backend.domains.Cliente;
 import br.com.backendspring.backend.domains.Endereco;
 import br.com.backendspring.backend.domains.Estado;
+import br.com.backendspring.backend.domains.ItemPedido;
 import br.com.backendspring.backend.domains.Pagamento;
 import br.com.backendspring.backend.domains.PagamentoComBoleto;
 import br.com.backendspring.backend.domains.PagamentoComCartao;
@@ -24,6 +25,7 @@ import br.com.backendspring.backend.repositories.CidadeRepository;
 import br.com.backendspring.backend.repositories.ClienteRepository;
 import br.com.backendspring.backend.repositories.EnderecoRepository;
 import br.com.backendspring.backend.repositories.EstadoRepository;
+import br.com.backendspring.backend.repositories.ItemPedidoRepository;
 import br.com.backendspring.backend.repositories.PagamentoRepository;
 import br.com.backendspring.backend.repositories.PedidoRepository;
 import br.com.backendspring.backend.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class Instanciando implements CommandLineRunner {
 
     @Autowired
     private PagamentoRepository pagRepository;
+
+    @Autowired
+    private ItemPedidoRepository ipRepository;
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -111,6 +116,11 @@ public class Instanciando implements CommandLineRunner {
         pedRepository.saveAll(Arrays.asList(ped1, ped2));
         pagRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+        ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+        ipRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
     }
 
 }

@@ -34,6 +34,14 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    public Pedido getPedido() {
+        return id.getPedido();
+    }
+
+    public Produto getProduto() {
+        return id.getProduto();
+    }
+
     public ItemPedidoPK getId() {
         return id;
     }

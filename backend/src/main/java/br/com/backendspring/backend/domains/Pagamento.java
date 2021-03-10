@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.backendspring.backend.domains.enums.EstadoPagamento;
 
 @Entity
@@ -26,6 +28,7 @@ public class Pagamento implements Serializable {
 
     @MapsId
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
