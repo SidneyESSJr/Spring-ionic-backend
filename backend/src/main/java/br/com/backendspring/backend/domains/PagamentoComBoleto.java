@@ -14,7 +14,7 @@ import br.com.backendspring.backend.domains.enums.EstadoPagamento;
 public class PagamentoComBoleto extends Pagamento {
     private static final long serialVersionUID = 1L;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
