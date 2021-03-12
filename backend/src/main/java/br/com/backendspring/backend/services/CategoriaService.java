@@ -21,4 +21,8 @@ public class CategoriaService {
                 "Objeto não encotrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
 
+    public Categoria save(Categoria categoria) {
+        return repository.save(categoria);
+    }
+
 }
