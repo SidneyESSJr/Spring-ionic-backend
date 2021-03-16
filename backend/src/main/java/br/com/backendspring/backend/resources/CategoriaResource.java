@@ -3,6 +3,8 @@ package br.com.backendspring.backend.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.backendspring.backend.domains.Categoria;
-import br.com.backendspring.backend.domains.projecoes.ProjecaoCategoria;
+import br.com.backendspring.backend.domains.dto.CategoriaDTO;
 import br.com.backendspring.backend.services.CategoriaService;
 
 @RestController
@@ -35,34 +37,34 @@ public class CategoriaResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjecaoCategoria>> findAll() {
-        List<ProjecaoCategoria> list = service.findAll();
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<CategoriaDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<ProjecaoCategoria>> findPage(
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "8") Integer size,
+            @RequestParam(value = "size", defaultValue = "24") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "properties", defaultValue = "nome") String properties) {
 
-        Page<ProjecaoCategoria> pages = service.findPage(page, size, direction, properties);
+        Page<CategoriaDTO> pages = service.findPage(page, size, direction, properties);
         return ResponseEntity.ok().body(pages);
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody Categoria categoria) {
-        categoria = service.save(categoria);
+    public ResponseEntity<Void> save(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+        Categoria categoria = service.save(service.fromDTO(categoriaDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria categoria) {
-        categoria.setId(id);
-        service.update(categoria);
+    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
+        categoriaDTO.setId(id);
+        service.update(service.fromDTO(categoriaDTO));
         return ResponseEntity.noContent().build();
     }
 
