@@ -1,5 +1,6 @@
 package br.com.backendspring.backend.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.backendspring.backend.domains.Categoria;
+import br.com.backendspring.backend.domains.projecoes.ProjecaoCategoria;
 import br.com.backendspring.backend.repositories.CategoriaRepository;
 import br.com.backendspring.backend.services.exceptions.DataIntegrityException;
 import br.com.backendspring.backend.services.exceptions.ObjectNotFoundException;
@@ -21,6 +23,10 @@ public class CategoriaService {
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encotrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+    }
+
+    public List<ProjecaoCategoria> findAll() {
+        return repository.findAllProjecaoCategoria();
     }
 
     public Categoria save(Categoria categoria) {
