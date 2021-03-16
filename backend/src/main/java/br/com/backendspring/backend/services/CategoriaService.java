@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.backendspring.backend.domains.Categoria;
@@ -45,6 +48,11 @@ public class CategoriaService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possivel remover uma Categoria com produtos vinculados a ela");
         }
+    }
+
+    public Page<ProjecaoCategoria> findPage(Integer page, Integer size, String direction, String properties) {
+        PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), properties);
+        return repository.findAllProjecaoCategoria(pageRequest);
     }
 
 }
