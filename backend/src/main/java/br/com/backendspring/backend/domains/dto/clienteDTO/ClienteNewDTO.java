@@ -2,27 +2,43 @@ package br.com.backendspring.backend.domains.dto.clienteDTO;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import br.com.backendspring.backend.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
+    @Size(min = 3, max = 80, message = "O campo deve ter entre 3 e 80 caracteres")
     private String nome;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
+    @Email(message = "Email invalido")
     private String email;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
     private String cpfOuCnpj;
 
     private Integer tipo;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
     private String logradouro;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
     private String numero;
 
     private String complemento;
 
     private String bairro;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
     private String cep;
 
+    @NotEmpty(message = "O campo deve ser preenchido")
     private String telefone1;
 
     private String telefone2;
