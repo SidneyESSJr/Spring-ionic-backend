@@ -94,21 +94,21 @@ public class Instanciando implements CommandLineRunner {
         Estado est1 = new Estado("Minas Gerais");
         Estado est2 = new Estado("São Paulo");
 
-        Cidade c1 = new Cidade("Uberlândia", est1);
-        Cidade c2 = new Cidade("São Paulo", est2);
-        Cidade c3 = new Cidade("Campinas", est2);
+        Cidade c1 = new Cidade(null, "Uberlândia", est1);
+        Cidade c2 = new Cidade(null, "São Paulo", est2);
+        Cidade c3 = new Cidade(null, "Campinas", est2);
 
         estRepository.saveAll(Arrays.asList(est1, est2));
         cidRepository.saveAll(Arrays.asList(c1, c2, c3));
 
         Cliente cli1 = new Cliente("Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
         cli1.getTelefones().addAll(Arrays.asList("28363323", "93898993"));
-        
+
         Cliente cli2 = new Cliente("Pedro Silva", "Pedro@gmail.com", "363781252377", TipoCliente.PESSOAFISICA);
-        cli1.getTelefones().addAll(Arrays.asList("28363583", "93498993"));
-        
+        cli2.getTelefones().addAll(Arrays.asList("28363583", "93498993"));
+
         Cliente cli3 = new Cliente("Silvio Silva", "silvio@gmail.com", "36378789377", TipoCliente.PESSOAFISICA);
-        cli1.getTelefones().addAll(Arrays.asList("28324323", "93858893"));
+        cli3.getTelefones().addAll(Arrays.asList("28324323", "93858893"));
 
         Endereco e1 = new Endereco("Rua Flores", "300", "Apto 203", "Jardin", "38220834", cli1, c1);
         Endereco e2 = new Endereco("Avenida Matos", "102", "Sala 800", "Centro", "38777012", cli1, c2);

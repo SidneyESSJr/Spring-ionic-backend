@@ -1,4 +1,4 @@
-package br.com.backendspring.backend.domains.dto;
+package br.com.backendspring.backend.domains.dto.clienteDTO;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import br.com.backendspring.backend.domains.Cliente;
 
-public class ClienteDTO implements Serializable {
+public class ClienteBasicDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -22,11 +22,11 @@ public class ClienteDTO implements Serializable {
     @Email(message = "Email invalido")
     private String email;
 
-    public ClienteDTO() {
+    public ClienteBasicDTO() {
 
     }
 
-    public ClienteDTO(Cliente cliente) {
+    public ClienteBasicDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();

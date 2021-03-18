@@ -17,7 +17,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.backendspring.backend.domains.dto.ClienteDTO;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteBasicDTO;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteNewDTO;
 import br.com.backendspring.backend.domains.enums.TipoCliente;
 
 @Entity
@@ -52,10 +53,17 @@ public class Cliente implements Serializable {
 
     }
 
-    public Cliente(ClienteDTO clienteDTO) {
-        this.id = clienteDTO.getId();
-        this.nome = clienteDTO.getNome();
-        this.email = clienteDTO.getEmail();
+    public Cliente(ClienteBasicDTO obj) {
+        this.id = obj.getId();
+        this.nome = obj.getNome();
+        this.email = obj.getEmail();
+    }
+
+    public Cliente(ClienteNewDTO obj) {
+        this.nome = obj.getNome();
+        this.email = obj.getEmail();
+        this.cpfOuCnpj = obj.getCpfOuCnpj();
+        this.tipo = obj.getTipo();
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {

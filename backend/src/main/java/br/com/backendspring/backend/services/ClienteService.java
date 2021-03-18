@@ -10,10 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.backendspring.backend.domains.Cidade;
 import br.com.backendspring.backend.domains.Cliente;
-import br.com.backendspring.backend.domains.dto.ClienteDTO;
+import br.com.backendspring.backend.domains.Endereco;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteBasicDTO;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteNewDTO;
 import br.com.backendspring.backend.repositories.ClienteRepository;
+import br.com.backendspring.backend.repositories.EnderecoRepository;
 import br.com.backendspring.backend.services.exceptions.DataIntegrityException;
 import br.com.backendspring.backend.services.exceptions.ObjectNotFoundException;
 
@@ -21,45 +26,69 @@ import br.com.backendspring.backend.services.exceptions.ObjectNotFoundException;
 public class ClienteService {
 
     @Autowired
-    private ClienteRepository repository;
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public Cliente findById(Integer id) {
-        Optional<Cliente> obj = repository.findById(id);
+        Optional<Cliente> obj = clienteRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encotrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
-    public List<ClienteDTO> findAll() {
-        return repository.findAll().stream().map(c -> new ClienteDTO(c)).collect(Collectors.toList());
+    public List<ClienteBasicDTO> findAll() {
+        return clienteRepository.findAll().stream().map(c -> new ClienteBasicDTO(c)).collect(Collectors.toList());
     }
 
-    public Cliente save(Cliente cliente) {
-        return repository.save(cliente);
+    @Transactional
+    public Cliente save(ClienteNewDTO obj) {
+        Cliente cliente = clienteNew(obj);
+        cliente = clienteRepository.save(cliente);
+        enderecoRepository.saveAll(cliente.getEnderecos());
+        return cliente;
     }
 
-    public Cliente update(ClienteDTO clienteDTO) {
+    public Cliente update(ClienteBasicDTO clienteDTO) {
         Cliente cliente = findById(clienteDTO.getId());
         updateData(clienteDTO, cliente);
-        return repository.save(cliente);
+        return clienteRepository.save(cliente);
     }
 
     public void delete(Integer id) {
         findById(id);
         try {
-            repository.deleteById(id);
+            clienteRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possivel remover um Cliente com pedidos vinculados a ele");
         }
     }
 
-    public Page<ClienteDTO> findPage(Integer page, Integer size, String direction, String properties) {
+    public Page<ClienteBasicDTO> findPage(Integer page, Integer size, String direction, String properties) {
         PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), properties);
-        return repository.findAll(pageRequest).map(c -> new ClienteDTO(c));
+        return clienteRepository.findAll(pageRequest).map(c -> new ClienteBasicDTO(c));
     }
 
-    private void updateData(ClienteDTO clienteDTO, Cliente cliente) {
+    private void updateData(ClienteBasicDTO clienteDTO, Cliente cliente) {
         cliente.setNome(clienteDTO.getNome());
         cliente.setEmail(clienteDTO.getEmail());
+    }
+
+    private Cliente clienteNew(ClienteNewDTO obj) {
+        Cliente cliente = new Cliente(obj);
+        Cidade cidade = new Cidade(obj.getCidadeId(), null, null);
+        Endereco endereco = new Endereco(obj.getLogradouro(), obj.getNumero(), obj.getComplemento(), obj.getBairro(),
+                obj.getCep(), cliente, cidade);
+        cliente.getEnderecos().add(endereco);
+        cliente.getTelefones().add(obj.getTelefone1());
+
+        if (obj.getTelefone2() != null) {
+            cliente.getTelefones().add(obj.getTelefone2());
+        }
+        if (obj.getTelefone3() != null) {
+            cliente.getTelefones().add(obj.getTelefone3());
+        }
+        return cliente;
     }
 
 }

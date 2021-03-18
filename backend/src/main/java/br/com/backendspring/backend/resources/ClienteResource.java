@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.backendspring.backend.domains.Cliente;
-import br.com.backendspring.backend.domains.dto.ClienteDTO;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteBasicDTO;
+import br.com.backendspring.backend.domains.dto.clienteDTO.ClienteNewDTO;
 import br.com.backendspring.backend.services.ClienteService;
 
 @RestController
@@ -37,30 +38,30 @@ public class ClienteResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> findAll() {
-        List<ClienteDTO> list = service.findAll();
+    public ResponseEntity<List<ClienteBasicDTO>> findAll() {
+        List<ClienteBasicDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ResponseEntity<Page<ClienteBasicDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "properties", defaultValue = "nome") String properties) {
-        Page<ClienteDTO> pages = service.findPage(page, size, direction, properties);
+        Page<ClienteBasicDTO> pages = service.findPage(page, size, direction, properties);
         return ResponseEntity.ok().body(pages);
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@Valid @RequestBody Cliente cliente) {
-        cliente = service.save(cliente);
+    public ResponseEntity<Void> save(@Valid @RequestBody ClienteNewDTO obj) {
+        Cliente cliente = service.save(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody ClienteBasicDTO clienteDTO) {
         clienteDTO.setId(id);
         service.update(clienteDTO);
         return ResponseEntity.noContent().build();
