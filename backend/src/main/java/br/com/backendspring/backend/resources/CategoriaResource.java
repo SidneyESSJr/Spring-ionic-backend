@@ -43,8 +43,7 @@ public class CategoriaResource {
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<CategoriaDTO>> findPage(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "properties", defaultValue = "nome") String properties) {
@@ -55,7 +54,7 @@ public class CategoriaResource {
 
     @PostMapping
     public ResponseEntity<Void> save(@Valid @RequestBody CategoriaDTO categoriaDTO) {
-        Categoria categoria = service.save(service.fromDTO(categoriaDTO));
+        Categoria categoria = service.save(new Categoria(categoriaDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
@@ -64,7 +63,7 @@ public class CategoriaResource {
     @PutMapping(value = "{id}")
     public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
         categoriaDTO.setId(id);
-        service.update(service.fromDTO(categoriaDTO));
+        service.update(new Categoria(categoriaDTO));
         return ResponseEntity.noContent().build();
     }
 

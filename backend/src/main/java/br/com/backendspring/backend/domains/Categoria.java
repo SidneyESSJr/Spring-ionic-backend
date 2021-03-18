@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import br.com.backendspring.backend.domains.dto.CategoriaDTO;
+
 @Entity
 @Table(name = "tb_categoria")
 public class Categoria implements Serializable {
@@ -33,9 +35,9 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
-    public Categoria(Integer id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    public Categoria(CategoriaDTO categoriaDTO) {
+        this.id = categoriaDTO.getId();
+        this.nome = categoriaDTO.getNome();
     }
 
     public Integer getId() {

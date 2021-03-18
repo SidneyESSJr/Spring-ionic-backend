@@ -103,11 +103,17 @@ public class Instanciando implements CommandLineRunner {
 
         Cliente cli1 = new Cliente("Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
         cli1.getTelefones().addAll(Arrays.asList("28363323", "93898993"));
+        
+        Cliente cli2 = new Cliente("Pedro Silva", "Pedro@gmail.com", "363781252377", TipoCliente.PESSOAFISICA);
+        cli1.getTelefones().addAll(Arrays.asList("28363583", "93498993"));
+        
+        Cliente cli3 = new Cliente("Silvio Silva", "silvio@gmail.com", "36378789377", TipoCliente.PESSOAFISICA);
+        cli1.getTelefones().addAll(Arrays.asList("28324323", "93858893"));
 
         Endereco e1 = new Endereco("Rua Flores", "300", "Apto 203", "Jardin", "38220834", cli1, c1);
         Endereco e2 = new Endereco("Avenida Matos", "102", "Sala 800", "Centro", "38777012", cli1, c2);
 
-        cliRepository.save(cli1);
+        cliRepository.saveAll(Arrays.asList(cli1, cli2, cli3));
         endRepository.saveAll(Arrays.asList(e1, e2));
 
         Pedido ped1 = new Pedido(sdf.parse("30/09/2017 10:32"), cli1, e1);

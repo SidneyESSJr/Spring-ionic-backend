@@ -30,7 +30,8 @@ public class CategoriaService {
     }
 
     public List<CategoriaDTO> findAll() {
-        List<CategoriaDTO> list = repository.findAll().stream().map(f -> toCategoria(f)).collect(Collectors.toList());
+        List<CategoriaDTO> list = repository.findAll().stream().map(f -> new CategoriaDTO(f))
+                .collect(Collectors.toList());
         return list;
     }
 
@@ -54,14 +55,7 @@ public class CategoriaService {
 
     public Page<CategoriaDTO> findPage(Integer page, Integer size, String direction, String properties) {
         PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), properties);
-        return repository.findAll(pageRequest).map(f -> toCategoria(f));
+        return repository.findAll(pageRequest).map(f -> new CategoriaDTO(f));
     }
 
-    public CategoriaDTO toCategoria(Categoria categoria) {
-        return new CategoriaDTO(categoria.getId(), categoria.getNome());
-    }
-
-    public Categoria fromDTO(CategoriaDTO dto) {
-        return new Categoria(dto.getId(), dto.getNome());
-    }
 }
