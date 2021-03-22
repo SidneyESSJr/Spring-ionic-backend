@@ -1,4 +1,4 @@
-package br.com.backend.services.validation;
+package br.com.backend.services.validation.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+
+import br.com.backend.services.validation.validators.ClienteInsertValidator;
 
 @Constraint(validatedBy = ClienteInsertValidator.class)
 @Target({ ElementType.TYPE })

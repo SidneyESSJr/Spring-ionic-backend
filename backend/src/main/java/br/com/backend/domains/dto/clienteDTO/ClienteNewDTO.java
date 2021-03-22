@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import br.com.backend.services.validation.ClienteInsert;
+import br.com.backend.services.validation.annotations.ClienteInsert;
 
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
