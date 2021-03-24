@@ -1,11 +1,11 @@
-package br.com.backend.config;
+package br.com.backend.services;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import br.com.backend.domains.Categoria;
 import br.com.backend.domains.Cidade;
@@ -30,8 +30,10 @@ import br.com.backend.repositories.PagamentoRepository;
 import br.com.backend.repositories.PedidoRepository;
 import br.com.backend.repositories.ProdutoRepository;
 
-@Configuration
-public class Instanciando implements CommandLineRunner {
+// classe responsavel por popular o banco no perfil de testes
+
+@Service
+public class DBService {
 
     @Autowired
     private CategoriaRepository catRepository;
@@ -62,8 +64,7 @@ public class Instanciando implements CommandLineRunner {
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-    @Override
-    public void run(String... args) throws Exception {
+    public void instantiateTestDatabase() throws ParseException {
 
         catRepository.deleteAll();
         proRepository.deleteAll();
@@ -148,6 +149,7 @@ public class Instanciando implements CommandLineRunner {
         ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 
         ipRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+
     }
 
 }
