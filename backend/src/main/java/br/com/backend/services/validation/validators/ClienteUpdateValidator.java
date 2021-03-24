@@ -17,6 +17,8 @@ import br.com.backend.repositories.ClienteRepository;
 import br.com.backend.resources.exceptions.FieldMessage;
 import br.com.backend.services.validation.annotations.ClienteUpdate;
 
+// classe utilizada para implementar as valições da anotação @ClienteUpdate
+
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteBasicDTO> {
 
     // acessa os parametros inseridos na requisição

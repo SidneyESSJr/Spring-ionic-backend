@@ -16,7 +16,7 @@ public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
-    @EmbeddedId
+    @EmbeddedId // define que o atributo é uma chave composta baseada na classe itemPedidoPK 
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;

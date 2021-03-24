@@ -15,6 +15,8 @@ import br.com.backend.resources.exceptions.FieldMessage;
 import br.com.backend.services.validation.annotations.ClienteInsert;
 import br.com.backend.services.validation.utils.BR;
 
+// classe utilizada para implementar as validações da anotação @ClienteInsert
+
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 
     @Autowired

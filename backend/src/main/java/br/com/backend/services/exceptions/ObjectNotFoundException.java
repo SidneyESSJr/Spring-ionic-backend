@@ -1,5 +1,7 @@
 package br.com.backend.services.exceptions;
 
+// classe utilizada para personalizar exceções lançadas por objetos não encontrados
+
 public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 

@@ -9,7 +9,8 @@ import javax.persistence.ManyToOne;
 import br.com.backend.domains.Pedido;
 import br.com.backend.domains.Produto;
 
-@Embeddable
+@Embeddable // define que a classe não tera uma tabela exclusiva no banco, sera embutida
+            // (@embedded) em outra tabela, a qual vai receber a composição
 public class ItemPedidoPK implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -48,8 +48,9 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "tb_telefone")
+    @ElementCollection // define que o atributo sera armazenado em outra tabela mesmo não possuindo uma
+                       // entidade propria
+    @CollectionTable(name = "tb_telefone") // define o nome da tabela
     private Set<String> telefones = new HashSet<>();
 
     public Cliente() {

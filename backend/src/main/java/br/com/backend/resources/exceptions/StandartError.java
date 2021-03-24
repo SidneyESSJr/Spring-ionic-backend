@@ -2,9 +2,11 @@ package br.com.backend.resources.exceptions;
 
 import java.io.Serializable;
 
-public class StandartError implements Serializable{
+// classe utilizada para manipular erros reportados por requisições
+
+public class StandartError implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private Integer status;
     private String message;
     private Long timeStamp;

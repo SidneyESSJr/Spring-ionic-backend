@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 import br.com.backend.services.validation.annotations.ClienteInsert;
 
-@ClienteInsert
+@ClienteInsert // anotação personalizada
 public class ClienteNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

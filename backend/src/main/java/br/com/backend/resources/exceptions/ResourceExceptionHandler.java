@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.backend.services.exceptions.DataIntegrityException;
 import br.com.backend.services.exceptions.ObjectNotFoundException;
 
-@ControllerAdvice
+// classe criada para modificar exceções reportadas por falhas em requisições
+
+@ControllerAdvice // anotação necessaria para realizar o controle de exceções
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)

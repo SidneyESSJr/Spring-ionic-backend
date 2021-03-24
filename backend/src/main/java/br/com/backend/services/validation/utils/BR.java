@@ -1,6 +1,8 @@
 package br.com.backend.services.validation.utils;
 
 // Fonte: https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30
+// classe utilizada para validações personalizadas
+
 public class BR {
 
     private static final int[] WEIGHT_SSN = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };

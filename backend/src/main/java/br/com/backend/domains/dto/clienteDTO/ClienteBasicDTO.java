@@ -10,13 +10,13 @@ import org.hibernate.validator.constraints.Length;
 import br.com.backend.domains.Cliente;
 import br.com.backend.services.validation.annotations.ClienteUpdate;
 
-@ClienteUpdate
+@ClienteUpdate // anotação personalizada
 public class ClienteBasicDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
 
-    @NotEmpty(message = "O campo deve ser preenchido")
+    @NotEmpty(message = "O campo deve ser preenchido") 
     @Length(min = 3, max = 120, message = "O campo deve ter entre 3 e 120 caracteres")
     private String nome;
 

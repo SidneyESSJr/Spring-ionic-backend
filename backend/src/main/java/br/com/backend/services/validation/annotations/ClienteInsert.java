@@ -10,6 +10,8 @@ import javax.validation.Payload;
 
 import br.com.backend.services.validation.validators.ClienteInsertValidator;
 
+// classe padrão utilizada para criar a anotação @ClienteInsert
+
 @Constraint(validatedBy = ClienteInsertValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)

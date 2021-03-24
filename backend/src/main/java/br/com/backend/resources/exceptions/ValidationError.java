@@ -3,6 +3,8 @@ package br.com.backend.resources.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
+// classe utilizada para armazenar erros de validação
+
 public class ValidationError extends StandartError {
     private static final long serialVersionUID = 1L;
 

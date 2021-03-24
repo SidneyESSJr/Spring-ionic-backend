@@ -2,6 +2,8 @@ package br.com.backend.resources.exceptions;
 
 import java.io.Serializable;
 
+// classe criada para receber dados das exceções reportadas em validações
+
 public class FieldMessage implements Serializable {
     private static final long serialVersionUID = 1L;
 

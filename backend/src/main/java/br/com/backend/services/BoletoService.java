@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 import br.com.backend.domains.PagamentoComBoleto;
 
+// classe utilizada para simular webservice para preenchimento do vencimento de boletos
+
 @Service
 public class BoletoService {
 
