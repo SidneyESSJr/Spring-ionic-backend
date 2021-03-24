@@ -36,6 +36,7 @@ public class CategoriaService {
     }
 
     public Categoria save(Categoria categoria) {
+        categoria.setId(null);
         return repository.save(categoria);
     }
 

@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import br.com.backend.domains.enums.EstadoPagamento;
 
 @Entity
 @Table(name = "tb_pagamento_boleto")
+@JsonTypeName("pagamentoComBoleto") // utilizada para identificar a subclasse no atributo @type do objeto pagamento
 public class PagamentoComBoleto extends Pagamento {
     private static final long serialVersionUID = 1L;
 

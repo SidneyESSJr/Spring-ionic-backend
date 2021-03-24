@@ -12,12 +12,21 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import br.com.backend.domains.enums.EstadoPagamento;
 
 @Entity
 @Table(name = "tb_pagamento")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED) // utilizada em classes com herança
+                                                // InheritanceType.JOINED (tabelas para classe pais e filhas),
+                                                // InheritanceType.SINGLE_TABLE (uma única tabela 'tabelão'),
+                                                // InheritanceType.TABLE_PER_CLASS (entidade pai não gera uma tabela)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // cria uma nova
+                                                                                                  // propriedade @type
+                                                                                                  // que serve para
+                                                                                                  // identificar as
+                                                                                                  // subclasses em json
 public class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
