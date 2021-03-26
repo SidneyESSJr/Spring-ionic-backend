@@ -1,0 +1,9 @@
+user: yqjkkgoojpavox
+senha: cd415b600ea608b6187f960fca10b7cc04b993b0f2d32235fbb559507a52dee0
+server: ec2-54-205-183-19.compute-1.amazonaws.com
+port: 5432
+database: d3e0srifji47fs
+
+
+OBS: Na aba advanced - DB restriction inserir database: d3e0srifji47fs
+
