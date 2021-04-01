@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.backend.domains.ItemPedido;
 import br.com.backend.domains.PagamentoComBoleto;
@@ -33,15 +34,20 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public Pedido findById(Integer id) {
         Optional<Pedido> obj = pedidoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encotrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
 
+    @Transactional
     public Pedido save(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.findById(obj.getCliente().getId()));
         obj.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -52,10 +58,12 @@ public class PedidoService {
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido p : obj.getItens()) {
             p.setDesconto(0.0);
-            p.setPreco(produtoService.findById(p.getProduto().getId()).getPreco());
+            p.setProduto(produtoService.findById(p.getProduto().getId()));
+            p.setPreco(p.getProduto().getPreco());
             p.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
 }

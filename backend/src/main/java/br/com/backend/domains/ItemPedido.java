@@ -1,6 +1,8 @@
 package br.com.backend.domains;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,7 +18,7 @@ public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
-    @EmbeddedId // define que o atributo é uma chave composta baseada na classe itemPedidoPK 
+    @EmbeddedId // define que o atributo é uma chave composta baseada na classe itemPedidoPK
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;
@@ -51,7 +53,8 @@ public class ItemPedido implements Serializable {
     }
 
     public void setProduto(Produto produto) {
-        id.setProduto(produto);;
+        id.setProduto(produto);
+        ;
     }
 
     public Produto getProduto() {
@@ -84,6 +87,21 @@ public class ItemPedido implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        StringBuilder sb = new StringBuilder();
+        sb.append(getProduto().getNome());
+        sb.append("\nQuantidade: ");
+        sb.append(getQuantidade());
+        sb.append("\nPreço unidade: ");
+        sb.append(nf.format(getPreco()));
+        sb.append("\nSubtotal: ");
+        sb.append(nf.format(getSubTotal()));
+        sb.append("\n");
+        return sb.toString();
     }
 
 }
