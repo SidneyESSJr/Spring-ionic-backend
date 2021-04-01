@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.backend.services.DBService;
+import br.com.backend.services.EmailService;
+import br.com.backend.services.MockEmailService;
 
 @Configuration // define que é uma classe de configuração
 @Profile("test") // indica qual o profile esta classe esta configurando
@@ -21,5 +23,10 @@ public class TestConfig {
         dbService.instantiateTestDatabase();
         return true;
     }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
+    } 
 
 }
