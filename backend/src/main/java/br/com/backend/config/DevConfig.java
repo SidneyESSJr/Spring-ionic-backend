@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.backend.services.DBService;
+import br.com.backend.services.EmailService;
+import br.com.backend.services.SmtpEmailService;
 
 @Configuration // define que é uma classe de configuração
 @Profile("dev") // indica qual o profile esta classe esta configurando
@@ -29,6 +31,11 @@ public class DevConfig {
         }
 
         return false;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 
 }

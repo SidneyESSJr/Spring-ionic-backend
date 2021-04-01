@@ -18,7 +18,7 @@ public abstract class AbstractEmailService implements EmailService {
         sendEmail(sm);
     }
 
-    private SimpleMailMessage prepareSimpleMailMessageFromPedido(Pedido obj) {
+    protected SimpleMailMessage prepareSimpleMailMessageFromPedido(Pedido obj) {
         SimpleMailMessage sm = new SimpleMailMessage();
         sm.setTo(obj.getCliente().getEmail());
         sm.setFrom(sender);
